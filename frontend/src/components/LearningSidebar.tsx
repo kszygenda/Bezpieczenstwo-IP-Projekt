@@ -87,6 +87,8 @@ export function LearningSidebar({
           </div>
         </div>
 
+        <div className="mb-4 h-px bg-gradient-to-r from-transparent via-neutral-700 to-transparent" />
+
         <div className="mb-4 px-1">
           <p className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-100">
             <BookOpen size={17} className="text-orange-600" /> {tabLabel}
@@ -176,6 +178,8 @@ export function LearningSidebar({
               </SecondaryButton>
             )}
           </div>
+
+          <div className="mb-4 h-px bg-gradient-to-r from-transparent via-neutral-700 to-transparent" />
 
           <div className="mb-4 px-1">
             <p className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-100">

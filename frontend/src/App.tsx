@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { LandingPage } from './pages/LandingPage'
 import { OverexposedEndpointsPage } from './pages/OverexposedEndpointsPage'
@@ -11,6 +12,10 @@ function App() {
   const location = useLocation()
   const isTutorialView = location.pathname.startsWith('/tutorial/')
   const currentYear = new Date().getFullYear()
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   return (
     <div className="flex min-h-screen flex-col bg-neutral-950 text-neutral-100">

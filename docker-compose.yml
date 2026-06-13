@@ -1,12 +1,16 @@
-version: "3.8"
-
 services:
   proxy:
     build: ./proxy
     ports:
       - "80:80"
     depends_on:
+      - frontend
       - web
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
 
   web:
     build: ./backend

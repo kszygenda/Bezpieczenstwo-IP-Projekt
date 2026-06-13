@@ -1,6 +1,8 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine, SessionLocal
 from databaseModels.item import itemsRouter, ItemModel
+from databaseModels.sqli import sqliRouter
 from databaseModels.user import usersRouter, UserModel
 from databaseModels.userPermission import permissionsRouter, UserPermissionModel
 
@@ -39,9 +41,25 @@ initialize_db_data()
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost",
+        "http://localhost:80",
+        "http://127.0.0.1",
+        "http://127.0.0.1:80",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(itemsRouter)
 app.include_router(usersRouter)
 app.include_router(permissionsRouter)
+app.include_router(sqliRouter)
 
 @app.get("/health")
 def health_check():

@@ -41,6 +41,13 @@ export function JwtModulePage() {
         content: t('jwt.learn.sections.usage.content'),
         code: t('jwt.learn.sections.usage.code'),
       },
+      {
+        id: 'jwt-learn-more',
+        title: t('jwt.learn.sections.learnMore.title'),
+        content: t('jwt.learn.sections.learnMore.content'),
+        linkUrl: 'https://www.jwt.io/introduction#how-json-web-tokens-work',
+        linkLabel: t('jwt.learn.sections.learnMore.linkLabel'),
+      },
     ],
     [t],
   )
@@ -91,7 +98,7 @@ export function JwtModulePage() {
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:ml-80 lg:max-w-[calc(100%-20rem)] lg:px-8">
       <LearningSidebar
-        moduleTitle={t('jwt.title')}
+        moduleTitle={t('landing.moduleTwoTitle')}
         tabLabel={t('jwt.learn.tabLabel')}
         panelTitle={t('jwt.learn.panelTitle')}
         sections={learningSections}

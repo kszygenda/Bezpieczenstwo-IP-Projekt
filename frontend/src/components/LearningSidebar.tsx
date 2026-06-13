@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { BookOpen, ChevronLeft, ChevronRight, X } from 'lucide-react'
-import BorderGlow from './BorderGlow'
+import { BookOpen, ChevronLeft, ChevronRight, ExternalLink, X } from 'lucide-react'
 import { PrimaryButton, SecondaryButton } from './Button'
 import { useI18n } from '../i18n'
 
@@ -9,6 +8,8 @@ export type LearningSection = {
   title: string
   content: string
   code?: string
+  linkUrl?: string
+  linkLabel?: string
 }
 
 type LearningSidebarProps = {
@@ -59,7 +60,7 @@ export function LearningSidebar({
 
   return (
     <>
-      <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-80 border-r border-neutral-800 bg-neutral-950/95 p-4 lg:block">
+      <aside className="animate-slide-in-left fixed bottom-0 left-0 top-0 z-40 hidden w-80 border-r border-neutral-800 bg-neutral-950/95 p-4 lg:block">
         <div className="mb-4 rounded-xl border border-neutral-800 bg-neutral-900/60 p-3">
           <p className="text-sm font-semibold text-neutral-100">{t('app.title')}</p>
           <p className="text-xs text-neutral-400">{t('app.subtitle')}</p>
@@ -96,26 +97,19 @@ export function LearningSidebar({
 
         <nav className="space-y-2">
           {sections.map((section, index) => (
-            <BorderGlow
-              key={section.id}
-              className="rounded-lg !border-neutral-800"
-              borderRadius={8}
-              glowColor="24 95 55"
-              backgroundColor="rgb(23 23 23)"
-              colors={['#ea580c', '#fb923c', '#fdba74']}
-            >
+            <div key={section.id}>
               <button
                 type="button"
                 onClick={() => openSection(index)}
-                className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition ${
+                className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition duration-300 hover:border-orange-600 hover:bg-neutral-900 hover:text-neutral-100 ${
                   index === activeIndex
                     ? 'border-orange-600 bg-orange-600/10 text-neutral-100'
-                    : 'border-neutral-800 bg-neutral-900/70 text-neutral-300 hover:border-orange-600 hover:text-neutral-100'
+                    : 'border-neutral-800 bg-neutral-900/70 text-neutral-300'
                 }`}
               >
                 {section.title}
               </button>
-            </BorderGlow>
+            </div>
           ))}
         </nav>
       </aside>
@@ -197,10 +191,10 @@ export function LearningSidebar({
                 key={section.id}
                 type="button"
                 onClick={() => openSection(index)}
-                className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition ${
+                className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition duration-300 hover:border-orange-600 hover:bg-neutral-900 hover:text-neutral-100 ${
                   index === activeIndex
                     ? 'border-orange-600 bg-orange-600/10 text-neutral-100'
-                    : 'border-neutral-800 bg-neutral-900/70 text-neutral-300 hover:border-orange-600 hover:text-neutral-100'
+                    : 'border-neutral-800 bg-neutral-900/70 text-neutral-300'
                 }`}
               >
                 {section.title}
@@ -215,7 +209,7 @@ export function LearningSidebar({
           <button
             type="button"
             aria-label={closeLabel}
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/45 backdrop-blur-sm"
             onClick={() => {
               setIsModalOpen(false)
               setActiveIndex(null)
@@ -223,8 +217,21 @@ export function LearningSidebar({
             }}
           />
 
-          <article className="relative w-full max-w-3xl rounded-2xl border border-neutral-700 bg-neutral-950 p-5 shadow-2xl sm:p-6">
-            <header className="mb-4 border-b border-neutral-800 pb-3">
+          <article className="relative w-full max-w-3xl rounded-2xl border border-neutral-700 bg-neutral-950/95 p-5 shadow-2xl sm:p-6">
+            <button
+              type="button"
+              onClick={() => {
+                setIsModalOpen(false)
+                setActiveIndex(null)
+                setIsMobileNavOpen(false)
+              }}
+              className="absolute right-4 top-4 rounded-md border border-neutral-700 bg-neutral-950 p-1.5 text-neutral-300 transition hover:border-orange-600 hover:text-neutral-100"
+              aria-label={closeLabel}
+            >
+              <X size={16} />
+            </button>
+
+            <header className="mb-4 border-b border-neutral-800 pb-3 pr-10">
               <p className="text-xs uppercase tracking-[0.12em] text-neutral-400">{moduleTitle}</p>
               <h4 className="mt-1 text-xl font-semibold text-neutral-100">{activeSection?.title}</h4>
             </header>
@@ -237,21 +244,21 @@ export function LearningSidebar({
                   <code>{activeSection?.code}</code>
                 </pre>
               ) : null}
+
+              {activeSection?.linkUrl ? (
+                <a
+                  href={activeSection.linkUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-orange-600 px-4 py-2 text-sm font-semibold text-orange-600 transition duration-200 hover:bg-orange-600/10 hover:text-orange-600"
+                >
+                  {activeSection.linkLabel ?? activeSection.linkUrl}
+                  <ExternalLink size={14} />
+                </a>
+              ) : null}
             </div>
 
-            <footer className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-neutral-800 pt-4">
-              <SecondaryButton
-                type="button"
-                onClick={() => {
-                  setIsModalOpen(false)
-                  setActiveIndex(null)
-                  setIsMobileNavOpen(false)
-                }}
-                size="sm"
-              >
-                {closeLabel}
-              </SecondaryButton>
-
+            <footer className="mt-5 flex flex-wrap items-center justify-end gap-3 border-t border-neutral-800 pt-4">
               <div className="flex items-center gap-2">
                 <SecondaryButton type="button" onClick={goPrev} size="sm" disabled={!canGoPrev}>
                   <ChevronLeft size={14} /> {prevLabel}

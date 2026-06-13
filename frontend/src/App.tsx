@@ -10,6 +10,7 @@ function App() {
   const { language, setLanguage, t } = useI18n()
   const location = useLocation()
   const isTutorialView = location.pathname.startsWith('/tutorial/')
+  const currentYear = new Date().getFullYear()
 
   return (
     <div className="flex min-h-screen flex-col bg-neutral-950 text-neutral-100">
@@ -57,8 +58,11 @@ function App() {
       </div>
 
       <footer className="border-t border-neutral-800/90 bg-neutral-950/90">
-        <div className="mx-auto w-full max-w-7xl px-4 py-4 text-center text-xs text-neutral-400 sm:px-6 lg:px-8 sm:text-sm">
-          {t('app.credits')}: Patryk Kaczmarczyk, Rafał Szygenda
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-4 text-xs text-neutral-400 sm:px-6 sm:text-sm lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <p>© {currentYear} BWIP Security Lab</p>
+          <p className="lg:text-right">
+            {t('app.credits')}: Patryk Kaczmarczyk, Rafał Szygenda, Aleksander Kwaśnioch, Szymon Kupis
+          </p>
         </div>
       </footer>
     </div>

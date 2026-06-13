@@ -16,10 +16,10 @@ const pl = {
     live: 'na żywo',
   },
   landing: {
-    badge: 'Security Awareness Lab',
+    badge: 'Laboratorium świadomości bezpieczeństwa',
     title: 'Samouczek bezpieczeństwa aplikacji webowych',
     description:
-      'Aplikacja prezentuje prawdziwe problemy bezpieczeństwa i sposób ich wykrywania w kontrolowanym środowisku. Pierwszy moduł dotyczy nadmiernie wystawionych endpointów API.',
+      'Aplikacja prezentuje prawdziwe problemy bezpieczeństwa i sposób ich wykrywania w kontrolowanym środowisku.',
     focusTitle: 'Fokus: Zbyt wystawione endpointy',
     focusText: 'Pokazujemy ryzyko nadmiernej ekspozycji API i bezpieczne praktyki ograniczania dostępu.',
     apiTitle: 'Backend API',
@@ -45,7 +45,7 @@ const pl = {
   },
   sql: {
     module: 'Moduł 01',
-    title: 'Zbyt wystawione endpointy: laboratorium',
+    title: 'Zbyt wystawione endpointy',
     back: 'Powrót',
     eduMode: 'Tryb edukacyjny',
     eduText:
@@ -146,6 +146,12 @@ const pl = {
           code:
             "@app.get('/users/{user_id}')\ndef get_user(user_id: int, current_user=Depends(get_current_user)):\n    if current_user.role != 'admin' and current_user.id != user_id:\n        raise HTTPException(status_code=403, detail='Forbidden')\n    return service.get_user(user_id)",
         },
+        learnMore: {
+          title: 'Dowiedz się więcej',
+          content:
+            'Przeczytaj omówienie IDOR na MDN, aby połączyć ten moduł z typowym wzorcem słabości kontroli dostępu.',
+          linkLabel: 'Otwórz MDN: IDOR',
+        },
         jwtWhatIs: {
           title: 'Czym jest JWT token?',
           content:
@@ -170,7 +176,7 @@ const pl = {
   },
   jwt: {
     module: 'Moduł 02',
-    title: 'JWT: laboratorium autoryzacji',
+    title: 'JWT i autoryzacja dostępu',
     back: 'Powrót',
     eduMode: 'Tryb edukacyjny',
     eduText:
@@ -230,12 +236,18 @@ const pl = {
           code:
             "@app.get('/users/sensitive-jwt')\ndef sensitive(current_user=Depends(get_current_user)):\n    return {'id': current_user.id, 'name': current_user.name}",
         },
+        learnMore: {
+          title: 'Dowiedz się więcej',
+          content:
+            'Przeczytaj wprowadzenie JWT.io, aby zobaczyć, jak JSON Web Token jest zbudowany i weryfikowany.',
+          linkLabel: 'Otwórz JWT.io: jak działa JWT',
+        },
       },
     },
   },
   sqli: {
     module: 'Moduł 03',
-    title: 'SQL Injection: laboratorium obrony',
+    title: 'SQL Injection: wykrywanie i obrona',
     back: 'Powrót',
     eduMode: 'Tryb edukacyjny',
     eduText:
@@ -282,6 +294,12 @@ const pl = {
             'W Nginx można uruchomić ModSecurity i reguły OWASP CRS, aby wykrywać sygnatury SQL Injection na brzegu systemu. To podejście wspiera obronę warstwową.',
           code:
             "server {\n  listen 80;\n  modsecurity on;\n  modsecurity_rules_file /etc/nginx/modsec/main.conf;\n\n  location / {\n    proxy_pass http://app:8000;\n  }\n}\n\n# main.conf\nInclude /etc/modsecurity/modsecurity.conf\nInclude /etc/modsecurity/crs/crs-setup.conf\nInclude /etc/modsecurity/crs/rules/*.conf",
+        },
+        learnMore: {
+          title: 'Dowiedz się więcej',
+          content:
+            'Przeczytaj stronę OWASP, aby umieścić ćwiczenie w szerszym modelu zagrożeń i obrony przed SQL Injection.',
+          linkLabel: 'Otwórz OWASP: SQL Injection',
         },
       },
     },

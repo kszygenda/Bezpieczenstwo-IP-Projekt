@@ -12,7 +12,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '^/(health|users|items|permissions)': {
+      '^/(health|users|items|permissions|sqli)': {
         target: 'http://localhost:80',
         changeOrigin: true,
       },

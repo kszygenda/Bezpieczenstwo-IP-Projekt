@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ShieldAlert, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, Database, ShieldAlert, ShieldCheck } from 'lucide-react'
 import { FiCheckCircle, FiKey } from 'react-icons/fi'
 import { api, type ApiResult } from '../lib/api'
 import { TerminalPanel } from '../components/TerminalPanel'
@@ -40,6 +40,13 @@ export function SqlInjectionModulePage() {
         content: t('sqli.learn.sections.modsecurity.content'),
         code: t('sqli.learn.sections.modsecurity.code'),
       },
+      {
+        id: 'learn-more',
+        title: t('sqli.learn.sections.learnMore.title'),
+        content: t('sqli.learn.sections.learnMore.content'),
+        linkUrl: 'https://owasp.org/www-community/attacks/SQL_Injection',
+        linkLabel: t('sqli.learn.sections.learnMore.linkLabel'),
+      },
     ],
     [t],
   )
@@ -67,7 +74,7 @@ export function SqlInjectionModulePage() {
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:ml-80 lg:max-w-[calc(100%-20rem)] lg:px-8">
       <LearningSidebar
-        moduleTitle={t('sqli.title')}
+        moduleTitle={t('landing.moduleThreeTitle')}
         tabLabel={t('sqli.learn.tabLabel')}
         panelTitle={t('sqli.learn.panelTitle')}
         sections={learningSections}
@@ -144,6 +151,13 @@ export function SqlInjectionModulePage() {
                 {t('sqli.callProxyCheck')}
               </SecondaryButton>
             </div>
+
+            <div className="mt-4 rounded-xl border border-neutral-800 bg-neutral-950/70 p-4 text-xs text-neutral-200">
+              <p className="mb-2 inline-flex items-center gap-2 font-semibold text-neutral-100">
+                <Database size={15} className="text-orange-600" /> {t('sqli.queryPreviewTitle')}
+              </p>
+              <pre className="max-w-full overflow-x-auto whitespace-pre-wrap break-all">{queryPreview}</pre>
+            </div>
           </article>
         </div>
 
@@ -164,11 +178,6 @@ export function SqlInjectionModulePage() {
 
           <div className="animate-fade-up" style={{ animationDelay: '320ms' }}>
             <TerminalPanel title={t('sqli.terminalTitle')} subtitle={t('sqli.terminalSubtitle')} logs={logs} />
-          </div>
-
-          <div className="animate-fade-up rounded-xl border border-neutral-800 bg-neutral-950/70 p-4 text-xs text-neutral-200" style={{ animationDelay: '360ms' }}>
-            <p className="mb-2 font-semibold text-neutral-100">{t('sqli.queryPreviewTitle')}</p>
-            <pre className="max-w-full overflow-x-auto whitespace-pre-wrap break-all">{queryPreview}</pre>
           </div>
         </div>
       </section>

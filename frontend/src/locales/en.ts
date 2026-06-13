@@ -19,7 +19,7 @@ const en = {
     badge: 'Security Awareness Lab',
     title: 'Web application security tutorial',
     description:
-      'This app presents real security issues and ways to detect them in a controlled environment. The first module focuses on overexposed API endpoints.',
+      'This app presents real security issues and ways to detect them in a controlled environment.',
     focusTitle: 'Focus: Overexposed endpoints',
     focusText: 'We present API exposure risks and defensive best practices for access control.',
     apiTitle: 'Backend API',
@@ -45,7 +45,7 @@ const en = {
   },
   sql: {
     module: 'Module 01',
-    title: 'Overexposed endpoints: lab',
+    title: 'Overexposed endpoints',
     back: 'Back',
     eduMode: 'Educational mode',
     eduText:
@@ -146,6 +146,12 @@ const en = {
           code:
             "@app.get('/users/{user_id}')\ndef get_user(user_id: int, current_user=Depends(get_current_user)):\n    if current_user.role != 'admin' and current_user.id != user_id:\n        raise HTTPException(status_code=403, detail='Forbidden')\n    return service.get_user(user_id)",
         },
+        learnMore: {
+          title: 'Learn more',
+          content:
+            'Read the MDN overview of IDOR to connect this module with a common access-control weakness pattern.',
+          linkLabel: 'Open MDN: IDOR',
+        },
         jwtWhatIs: {
           title: 'What is a JWT token?',
           content:
@@ -170,7 +176,7 @@ const en = {
   },
   jwt: {
     module: 'Module 02',
-    title: 'JWT: authorization lab',
+    title: 'JWT and access authorization',
     back: 'Back',
     eduMode: 'Educational mode',
     eduText:
@@ -230,12 +236,18 @@ const en = {
           code:
             "@app.get('/users/sensitive-jwt')\ndef sensitive(current_user=Depends(get_current_user)):\n    return {'id': current_user.id, 'name': current_user.name}",
         },
+        learnMore: {
+          title: 'Learn more',
+          content:
+            'Read the JWT.io introduction for a visual explanation of how JSON Web Tokens are structured and verified.',
+          linkLabel: 'Open JWT.io: how JWT works',
+        },
       },
     },
   },
   sqli: {
     module: 'Module 03',
-    title: 'SQL Injection: defense lab',
+    title: 'SQL Injection: detection and defense',
     back: 'Back',
     eduMode: 'Educational mode',
     eduText:
@@ -282,6 +294,12 @@ const en = {
             'In Nginx, you can enable ModSecurity with OWASP CRS to detect SQL Injection signatures at the edge. This supports a layered defense strategy.',
           code:
             "server {\n  listen 80;\n  modsecurity on;\n  modsecurity_rules_file /etc/nginx/modsec/main.conf;\n\n  location / {\n    proxy_pass http://app:8000;\n  }\n}\n\n# main.conf\nInclude /etc/modsecurity/modsecurity.conf\nInclude /etc/modsecurity/crs/crs-setup.conf\nInclude /etc/modsecurity/crs/rules/*.conf",
+        },
+        learnMore: {
+          title: 'Learn more',
+          content:
+            'Read the OWASP community page to place this lab in the wider SQL Injection threat model and defense vocabulary.',
+          linkLabel: 'Open OWASP: SQL Injection',
         },
       },
     },

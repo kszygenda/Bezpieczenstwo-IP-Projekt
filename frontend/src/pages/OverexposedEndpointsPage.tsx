@@ -49,6 +49,13 @@ export function OverexposedEndpointsPage() {
         content: t('sql.learn.sections.prevention.content'),
         code: t('sql.learn.sections.prevention.code'),
       },
+      {
+        id: 'learn-more',
+        title: t('sql.learn.sections.learnMore.title'),
+        content: t('sql.learn.sections.learnMore.content'),
+        linkUrl: 'https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/IDOR',
+        linkLabel: t('sql.learn.sections.learnMore.linkLabel'),
+      },
     ],
     [t],
   )
@@ -76,7 +83,7 @@ export function OverexposedEndpointsPage() {
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:ml-80 lg:max-w-[calc(100%-20rem)] lg:px-8">
       <LearningSidebar
-        moduleTitle={t('sql.title')}
+        moduleTitle={t('landing.moduleOneTitle')}
         tabLabel={t('sql.learn.tabLabel')}
         panelTitle={t('sql.learn.panelTitle')}
         sections={learningSections}
